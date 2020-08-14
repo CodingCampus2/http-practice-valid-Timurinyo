@@ -37,7 +37,7 @@ namespace RESTClient
         public HttpRequestGet(HttpClient client, string url, string argument) :
             this(client, url)
         {
-            if (argument.Trim() == "")
+            if (argument == null || argument.Trim() == "")
             {
                 return;
             }
@@ -65,6 +65,47 @@ namespace RESTClient
             var resp = await response.Content.ReadAsStringAsync();
             return resp;
         }
+    }
+
+    class HttpRequestPut : BasicHttpRequest
+    {
+        public HttpRequestPut(HttpClient client, string url, string argument) :
+            base(client, url)
+        {
+            if (argument == null || argument.Trim() == "")
+            {
+                Console.WriteLine("Error. Please provide data to put.");
+                isInvalidRequest = true;
+                return;
+            }
+
+            string[] userInputArray = argument.Split(' ');
+            if (userInputArray.Length == 2)
+            {
+                Uri += $"/{userInputArray[0]}";
+                HttpData = new StringContent(userInputArray[1], Encoding.UTF8, "application/json");
+            }
+            else
+            {
+                Console.WriteLine("Error. Example get usage: \"put {id} {data}\"");
+                isInvalidRequest = true;
+                return;
+            }
+        }
+        public override async Task<string> MakeRequestAsync()
+        {
+            if (isInvalidRequest)
+            {
+                return null;
+            }
+
+            HttpResponseMessage response = await Client.PutAsync(Uri, HttpData);
+            Console.WriteLine(response.StatusCode);
+            var resp = await response.Content.ReadAsStringAsync();
+            return resp;
+        }
+
+        StringContent HttpData;
     }
 
     class HttpRequestPost : BasicHttpRequest
@@ -143,7 +184,7 @@ namespace RESTClient
 
     class Program
     {
-        static string[] availableRequestTypes = {"get", "delete", "post"};
+        static string[] availableRequestTypes = {"get", "delete", "post", "put"};
 
         static async Task RunRESTClient()
         {
@@ -160,7 +201,7 @@ namespace RESTClient
             string requestType = userInputArray[0];
             if (!availableRequestTypes.Contains(requestType))
             {
-                Console.WriteLine($"Supported types of requests are {availableRequestTypes}"); // TODO: Check
+                Console.WriteLine($"Supported types of requests are {availableRequestTypes.ToString()}"); // TODO: Check
                 return;
             }
 
@@ -186,6 +227,10 @@ namespace RESTClient
             else if (requestType == "delete")
             {
                 request = new HttpRequestDelete(client, url, userInput.Replace("delete", "").Trim());
+            }
+            else if (requestType == "put")
+            {
+                request = new HttpRequestPut(client, url, userInput.Replace("put", "").Trim());
             }
 
             if (request == null)

@@ -1,0 +1,91 @@
+                //class Person
+    //{
+    //    public string Name { get; set; }
+    //    public string Occupation { get; set; }
+
+    //    public override string ToString()
+    //    {
+    //        return $"{Name}: {Occupation}";
+    //    }
+    //}
+
+    //class Contributor
+    //{
+    //    public string Login { get; set; }
+    //    public short Contributions { get; set; }
+
+    //    public string Type { get; set; }
+
+    //    [JsonProperty("organizations_url")]
+    //    public string OrganizationsUrl { get; set; }
+    //    public override string ToString()
+    //    {
+    //        return $"{Login,20}: {Contributions} contributions. Type: {Type}. Organizationsurl: {OrganizationsUrl}";
+    //    }
+    //}
+
+    class DummyData
+    {
+        public DummyData(string id, int weight)
+        {
+            DataId = id;
+            Weight = weight;
+        }
+        public string DataId { get; set; }
+        public int Weight { get; set; }
+    }
+
+            //HttpResponseMessage response = await client.GetAsync(url);
+
+            //response.EnsureSuccessStatusCode();
+            //var resp = await response.Content.ReadAsStringAsync();
+            //Console.WriteLine(resp);
+
+
+            //Console.ReadLine();
+            //var person = new Person();
+            //person.Name = "John Doe";
+            //person.Occupation = "gardener";
+
+            //var json = JsonConvert.SerializeObject(person);
+            //var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            //var url = "http://httpbin.org/post";
+
+
+            //var url = "http://webcode.me";
+            //using var client = new HttpClient();
+
+            //var result = await client.GetAsync("http://webcode.me");
+            //Console.WriteLine(result.StatusCode);
+
+            //var content = await client.GetStringAsync("http://webcode.me");
+            //Console.WriteLine(content);
+
+            //var result = await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, url));
+            //Console.WriteLine(result);
+
+            //var response = await client.PostAsync(url, data);
+
+            //string result = response.Content.ReadAsStringAsync().Result;
+
+            //Console.WriteLine(result);
+
+            //client.BaseAddress = new Uri("http://localhost:5000");
+            ////client.DefaultRequestHeaders.Add("User-Agent", "C# console program");
+            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //client.DefaultRequestHeaders.Add("appId", "campus-task");
+
+            //var url = "somedata";
+            //HttpResponseMessage response = await client.GetAsync(url);
+
+            //response.EnsureSuccessStatusCode();
+            //var resp = await response.Content.ReadAsStringAsync();
+            //Console.WriteLine(resp);
+            //Console.ReadLine();
+
+            //List<Contributor> contributors = JsonConvert.DeserializeObject<List<Contributor>>(resp);
+
+            //contributors.ForEach(Console.WriteLine);
+
+            //Console.ReadLine();
